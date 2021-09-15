@@ -1,23 +1,17 @@
-from read_matrix import read_matrix
+from read_matrix import make_wide_matrix, read_matrix, print_matrix
 import sys
 
 INPUT_PATH = 'txt\\input.txt'
 OUTPUT_PATH = 'txt\\output.txt'
+DEBUG = True
 
+# чтение из файла
 matrix_A, matrix_B = read_matrix(INPUT_PATH)
 
+
 #объединяем матрицы в расширенную
-wide_matrix = list()
-for i, row_a in enumerate(matrix_A):
-    line = list()
-    for e in row_a:
-        print(f'{e:-6}', end='')
-        line.append(e)
-    line.append(matrix_B[i])
-    print(f'  | {matrix_B[i]:-6}', end='')
-    wide_matrix.append(line)
-    print()
-print()
+wide_matrix = make_wide_matrix(matrix_A, matrix_B)
+print_matrix(wide_matrix)
 
 # переименуем для краткости
 a = wide_matrix
@@ -26,18 +20,23 @@ n = len(a)
 # копим решение здесь
 x = [0] * n
 
-# Преобразование строк
+# Преобразование строк к верхнетреугольному
 for i in range(n):
     if a[i][i] == 0.0:
-        sys.exit('0 на главной диагонали, На ноль делить нельзя!')
+        sys.exit('0 на главной диагонали, На 0 делить нельзя!')
         
     for j in range(i + 1, n):
         ratio = a[j][i] / a[i][i]
         
         for k in range(n + 1):
             a[j][k] = a[j][k] - ratio * a[i][k]
+    
+    if DEBUG:
+        print('-'*32)
+        print(f'i = {i}, ratio = {ratio:.3f}')
+        print_matrix(a)
 
-# Последовательная подстановка сверху вниз
+# Последовательная подстановка снизу вверх
 x[n-1] = a[n-1][n] / a[n-1][n-1]
 
 for i in range(n-2, -1, -1):
@@ -50,5 +49,4 @@ for i in range(n-2, -1, -1):
 
 # Вывод решения
 print('\nКорни системы: ')
-
 print(*[f'X{i} = {x[i]:.2f}' for i, e in enumerate(x)], sep=' | ')
