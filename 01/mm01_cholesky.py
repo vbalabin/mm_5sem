@@ -30,12 +30,13 @@ def cholesky_decomposition(a):
     L = np.zeros_like(a)
     n, _ = np.shape(L)
 
-    # Perform the Cholesky decomposition
+    # декомпозиция
+    # i строка, j столбец, k для сбора суммы
     for i in range(n):
         for j in range(i+1):
             tmp_sum = sum(L[i][k] * L[j][k] for k in range(j))
             
-            if (i == j): # Diagonal elements
+            if (i == j): # Диагональные элементы
                 L[i][j] = np.sqrt(a[i][i] - tmp_sum)
             else:
                 L[i][j] = (1.0 / L[j][j] * (a[i][j] - tmp_sum))
@@ -65,8 +66,8 @@ if DEBUG:
 x = solveLU(L, L.transpose(), prod_matrix_B)
 if DEBUG:
     print('проверка: ')
-    _ = r"np.linalg.solve(prod_matrix_A, prod_matrix_B) ="
-    print(_, np.linalg.solve(prod_matrix_A, prod_matrix_B))
+    _s = r"np.linalg.solve(prod_matrix_A, prod_matrix_B) ="
+    print(_s, np.linalg.solve(prod_matrix_A, prod_matrix_B))
 
 print('\nКорни системы: ')
 print(*[f'X{i} = {x[i]:.2f}' for i, e in enumerate(x)], sep=' | ')
