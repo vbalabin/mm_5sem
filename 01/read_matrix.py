@@ -1,4 +1,6 @@
 import re
+import sys
+import functools
 
 
 def make_wide_matrix(a , b):
@@ -70,3 +72,21 @@ def read_matrix(filename):
             matrix_B.append(float(f"{b.strip().replace(',', '.').replace('–', '-')}"))
 
     return matrix_A, matrix_B
+
+def print_to_txt(is_set, path):
+    def decorator_print(func):
+        @functools.wraps(func)
+        def wrapper_print(*args, **kwargs):
+            if is_set:
+                with open(path, 'w', encoding='utf-8') as fileout:
+                    stdout = sys.stdout
+                    sys.stdout = fileout
+                    value = func(*args, **kwargs)
+
+                with open(path, 'r', encoding='utf-8') as f:
+                    sys.stdout = stdout
+                    print(f.read())
+
+            return value
+        return wrapper_print
+    return decorator_print
