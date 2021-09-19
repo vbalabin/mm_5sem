@@ -86,7 +86,8 @@ def print_to_txt(is_set, path):
                 with open(path, 'r', encoding='utf-8') as f:
                     sys.stdout = stdout
                     print(f.read())
-
+            else:
+                value = func(*args, **kwargs)
             return value
         return wrapper_print
     return decorator_print

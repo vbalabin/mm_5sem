@@ -1,5 +1,5 @@
-from read_matrix import make_wide_matrix, read_matrix, print_matrix, print_to_txt
 import sys
+from read_matrix import make_wide_matrix, read_matrix, print_matrix, print_to_txt
 
 INPUT_PATH = 'txt\\input.txt'
 OUTPUT_PATH = 'txt\\output_gauss.txt'

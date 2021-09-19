@@ -1,5 +1,3 @@
-from mm01_gauss import TO_FILE
-import sys
 import numpy as np
 from read_matrix import make_wide_matrix, read_matrix, print_matrix, print_to_txt
 
