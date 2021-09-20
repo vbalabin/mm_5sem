@@ -1,9 +1,8 @@
 import numpy as np
 from read_matrix import make_wide_matrix, read_matrix, print_matrix, print_to_txt
 
-
 INPUT_PATH = 'txt\\input.txt'
-OUTPUT_PATH = 'txt\\output_zeidel.txt'
+OUTPUT_PATH = 'txt\\output_yakobi.txt'
 DEBUG = True
 TO_FILE = True
 
@@ -19,18 +18,16 @@ def main():
     n, _ = a.shape
 
 
-    def max_difference(x1, x2):
+    def max_difference(x, x_last):
         result = 0
-        for i in range(len(x1)):
-            current_value = abs(x1[i] - x2[i])
+        for i in range(len(x)):
+            current_value = abs(x[i] - x_last[i])
             if current_value > result:
                 result = current_value
         return result
 
-    # Зейдель быстрее сходится
     def solve(a, b, n, eps):
         x = np.zeros(n)
-        z = np.zeros(n)
         x_last = np.zeros(n)
 
         for i in range(n):
@@ -46,12 +43,11 @@ def main():
                 for j in range(i+1, n):
                     s += a[i, j] * x[j]
                 x_last[i] = (b[i] - s) / a[i, i]
-                z[i] = x[i]
-                x[i] = x_last[i]
-            norma = max_difference(x, z)
+
+            norma = max_difference(x, x_last)
             if norma < eps or k > 25:
                 break
-            # x = np.copy(x_last)
+            x = np.copy(x_last)
             k += 1
 
         return x, k
@@ -61,7 +57,7 @@ def main():
 
     print('-' * ord(' ') + '\n')
     print('Корни системы: ')
-    print(*[f'X{i} = {e}' for i, e in enumerate(x)], sep=' | ', end='\n')
+    print(*[f'X{i} = {e:.5f}' for i, e in enumerate(x)], sep=' | ', end='\n')
     print(f'итераций произведено: {k}, eps = {eps}', end='\n\n')
 
     if DEBUG:
