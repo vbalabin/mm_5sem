@@ -1,5 +1,6 @@
 import sys
 from read_matrix import make_wide_matrix, read_matrix, print_matrix, print_to_txt
+import numpy as np
 
 INPUT_PATH = 'txt\\input.txt'
 OUTPUT_PATH = 'txt\\output_gauss.txt'
@@ -10,6 +11,28 @@ TO_FILE = True
 def main():
     # чтение из файла
     matrix_A, matrix_B = read_matrix(INPUT_PATH)
+    b = [0] * 3
+    A = [[0] * 4, [0] * 4, [0] * 4]
+    A = np.zeros((3, 4), float)
+    b[0] = 1.48
+    b[1] = 1.92
+    b[2] = 2.16
+
+    A[0, 0] = 2.36
+    A[0, 1] = 2.37
+    A[0, 2] = 2.13
+    A[0, 3] = b[0]
+
+    A[1, 0] = 2.51
+    A[1, 1] = 2.40
+    A[1, 2] = 2.10
+    A[1, 3] = b[1]
+
+    A[2, 0] = 2.59
+    A[2, 1] = 2.41
+    A[2, 2] = 2.06
+    A[2, 3] = b[2]
+
 
     #объединяем матрицы в расширенную
     wide_matrix = make_wide_matrix(matrix_A, matrix_B)
@@ -17,6 +40,7 @@ def main():
 
     # переименуем для краткости
     a = wide_matrix
+    a = A
     # количество строк
     n = len(a)
     # копим решение здесь
