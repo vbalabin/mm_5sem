@@ -9,7 +9,7 @@ OUTPUT_FILE = f'txt/output_{get_currently_executed_file(sys.argv[0])}.txt'
 
 def binary_search(a, b, eps, f_):
     if f_(a) * f_(b) > 0:
-        raise ValueError('Условие сходимости не выполнено, a*b > 0')
+        raise ValueError('Условие сходимости не выполнено, f(a)*f(b) > 0')
 
     is_increasing = True if f_(a) < 0 else False
 

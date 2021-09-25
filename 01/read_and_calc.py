@@ -1,4 +1,3 @@
-from os import name
 import re
 import sys
 import functools
@@ -72,9 +71,8 @@ def calculate_diff_2(coeffs, x):
     diff1_coeffs = list()
     for i, c in zip(coeffs, range(4, 0, -1)):
         diff1_coeffs.append(i*c)
-    result = 0
-    for i, c in enumerate(diff1_coeffs[::-1][1:]):
-        result += (i+1)*c*x**i
+
+    result = calculate_diff_1(diff1_coeffs, x)
     return result
 
 def get_currently_executed_file(name):
