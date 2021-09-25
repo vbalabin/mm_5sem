@@ -1,7 +1,12 @@
+from os import name
 import re
 import sys
 import functools
 from collections import namedtuple
+
+"""
+Модуль со вспомогательными функциями и константами
+"""
 
 INPUT_FILE = 'txt/input.txt'
 RootIsolation = namedtuple('RootIsolation', ['a', 'b'])
@@ -50,6 +55,37 @@ def calculate_nonlinear(coeffs, x):
     for i, c in enumerate(coeffs[::-1]):
         result += c * x ** i
     return result
+
+def calculate_diff_1(coeffs, x):
+    """
+    первая производная
+    """
+    result = 0
+    for i, c in enumerate(coeffs[::-1][1:]):
+        result += (i+1)*c*x**i
+    return result
+
+def calculate_diff_2(coeffs, x):
+    """
+    вторая производная
+    """
+    diff1_coeffs = list()
+    for i, c in zip(coeffs, range(4, 0, -1)):
+        diff1_coeffs.append(i*c)
+    result = 0
+    for i, c in enumerate(diff1_coeffs[::-1][1:]):
+        result += (i+1)*c*x**i
+    return result
+
+def get_currently_executed_file(name):
+    """
+    вспомогательный
+    """
+    _i = name.rfind('.')
+    name = name[:_i]
+    _i = name.rfind('\\') + 1
+    name = name[_i:]
+    return name
 
 
 def print_to_txt(is_set, path):

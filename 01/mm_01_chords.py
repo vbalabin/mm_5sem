@@ -7,35 +7,17 @@ eps = 0.001
 IS_TO_TXT = True
 OUTPUT_FILE = f'txt/output_{get_currently_executed_file(sys.argv[0])}.txt'
 
-def binary_search(a, b, eps, f_):
+def chords_method(a, b, eps, f_):
     if f_(a) * f_(b) > 0:
         raise ValueError('Условие сходимости не выполнено, a*b > 0')
 
-    is_increasing = True if f_(a) < 0 else False
-
-    x = a
     it = 0
-    while abs(f_(x)) > eps:
-        x = a + (b - a) / 2 
-
-        """
-        if is_increasing:
-            if f_(x) < 0:
-                a = x
-            else:
-                b = x     
-        else:
-            if f_(x) < 0:
-                b = x
-            else:
-                a = x            
-        """
-        if (f_(x) < 0) ^ is_increasing:
-            b = x     
-        else:
-            a = x
+    while abs(f_(b)) > eps:
+        step_numerator = (a - b) * f_(b)
+        step_denumerator = f_(a) - f_(b)
+        b = b - step_numerator / step_denumerator
         it += 1
-    return x, it
+    return b, it
 
 @print_to_txt(IS_TO_TXT, OUTPUT_FILE)
 def main():
@@ -53,7 +35,7 @@ def main():
     print('-'*32)
 
     for key, e in zip(iso.keys(), iso.values()):
-        x, it = binary_search(e.a, e.b, eps, f_)
+        x, it = chords_method(e.a, e.b, eps, f_)
         print(f'{key} = {x:.5f}, f(x) = {f_(x):.6f}, eps = {eps}, iterations: {it}')
     print()
 

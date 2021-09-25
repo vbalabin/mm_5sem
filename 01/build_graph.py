@@ -37,7 +37,6 @@ def create_graph(left_xlim, right_xlim, func):
     import matplotlib.pyplot as plt
     from matplotlib.ticker import (AutoMinorLocator, MultipleLocator)
 
-    # выбор массива для нанесения на график
     fig, ax = plt.subplots()
 
     # set the x-spine (see below for more info on `set_position`)
