@@ -1,7 +1,7 @@
 import sys
 from read_and_calc import read_equation_coeffs, calculate_nonlinear
 from read_and_calc import print_to_txt, get_currently_executed_file, INPUT_FILE
-from read_and_calc import calculate_diff_1, calculate_diff_2, INPUT_FILE
+from read_and_calc import calculate_diff_1, calculate_diff_2
 from read_and_calc import ISOLATIONS
 
 eps = 0.001
@@ -34,7 +34,7 @@ def main():
     # задаем функцию нелинейного уравнения
     coeffs = read_equation_coeffs(INPUT_FILE)
     f_ = lambda x: calculate_nonlinear(coeffs, x)
-    
+
     # задаем функцию первой производной
     diff1_f = lambda x: calculate_diff_1(coeffs, x)
 
