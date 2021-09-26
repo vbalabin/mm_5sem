@@ -75,14 +75,12 @@ def calculate_diff_2(coeffs, x):
     result = calculate_diff_1(diff1_coeffs, x)
     return result
 
-def get_currently_executed_file(name):
+def strip_ext(name):
     """
     вспомогательный
     """
     _i = name.rfind('.')
     name = name[:_i]
-    _i = name.rfind('\\') + 1
-    name = name[_i:]
     return name
 
 

@@ -1,9 +1,10 @@
 import sys
-from read_matrix import make_wide_matrix, read_matrix, print_matrix, print_to_txt
+import os
+from read_matrix import make_wide_matrix, read_matrix, strip_ext, print_matrix, print_to_txt
 import numpy as np
 
 INPUT_PATH = 'txt\\input.txt'
-OUTPUT_PATH = 'txt\\output_gauss.txt'
+OUTPUT_PATH = f'txt\\output_{strip_ext(os.path.basename(__file__))}.txt'
 DEBUG = True
 TO_FILE = True
 

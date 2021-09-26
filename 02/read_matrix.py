@@ -35,6 +35,15 @@ def print_matrix(m, digits=2, space=8):
         print()        
 
 
+def strip_ext(name):
+    """
+    вспомогательный
+    """
+    _i = name.rfind('.')
+    name = name[:_i]
+    return name
+
+
 def has_digit(string: str):
     """
     вспомогательная для read matrix
