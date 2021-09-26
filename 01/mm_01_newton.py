@@ -1,12 +1,12 @@
-import sys
+import os
 from read_and_calc import read_equation_coeffs, calculate_nonlinear
-from read_and_calc import print_to_txt, get_currently_executed_file, INPUT_FILE
+from read_and_calc import print_to_txt, strip_ext, INPUT_FILE
 from read_and_calc import calculate_diff_1, calculate_diff_2
 from read_and_calc import ISOLATIONS
 
 eps = 0.001
 IS_TO_TXT = True
-OUTPUT_FILE = f'txt/output_{get_currently_executed_file(sys.argv[0])}.txt'
+OUTPUT_FILE = f'txt\\output_{strip_ext(os.path.basename(__file__))}.txt'
 
 def newton_method(a, b, eps, f_, diff1_f, diff2_f):
     if f_(a) * diff2_f(a) > 0:

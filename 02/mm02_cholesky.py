@@ -1,8 +1,9 @@
+import os
 import numpy as np
-from read_matrix import make_wide_matrix, read_matrix, print_matrix, print_to_txt
+from read_matrix import make_wide_matrix, strip_ext, read_matrix, print_matrix, print_to_txt
 
 INPUT_PATH = 'txt\\input.txt'
-OUTPUT_PATH = 'txt\\output_cholesky.txt'
+OUTPUT_PATH = f'txt\\output_{strip_ext(os.path.basename(__file__))}.txt'
 DEBUG = True
 TO_FILE = True
 

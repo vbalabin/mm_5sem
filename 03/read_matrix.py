@@ -16,6 +16,15 @@ def make_wide_matrix(a , b):
     return wide_matrix
 
 
+def strip_ext(name):
+    """
+    вспомогательный
+    """
+    _i = name.rfind('.')
+    name = name[:_i]
+    return name
+
+
 def print_matrix(m, digits=2, space=8):
     """
     """
