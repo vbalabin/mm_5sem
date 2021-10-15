@@ -1,19 +1,50 @@
+import os
 import numpy as np
-import sympy as sp
-from read_matrix import make_wide_matrix, read_matrix, print_matrix, print_to_txt
+from data_input import jacobi, system_newton, root, eps
+from output_help import strip_ext, make_wide_matrix, print_matrix, print_to_txt
 
-INPUT_PATH = 'txt\\input.txt'
-OUTPUT_PATH = 'txt\\output_newton.txt'
-DEBUG = True
-TO_FILE = False
+OUTPUT_PATH = f'txt\\output_{strip_ext(os.path.basename(__file__))}.txt'
+TO_FILE = True
+
+
+def iterative_newton(fun, x0, jacobian, eps):
+    max_iter = 20
+
+    x_last = x0
+    for k in range(max_iter):
+        print('Итерация :', k)
+        # Решаем J(xn)*( xn+1 - xn ) = -F(xn):
+        J = np.array(jacobian(x_last))
+        F = np.array(fun(x_last))
+        matr = make_wide_matrix(J, F)
+        print_matrix(matr, digits=4)
+
+        diff = np.linalg.solve( J, -F )
+        x_last = x_last + diff
+
+        # Условие выхода из цикла:
+        if np.linalg.norm(diff) < eps:
+            break
+
+    print('количество итераций:', k)
+
+    return {'x': x_last[0], 'y': x_last[1]}
+
 
 @print_to_txt(TO_FILE, OUTPUT_PATH)
 def main():
-    x, y = sp.symbols('x,y')
-    eq1 = sp.Eq(sp.cos(x + 0.5) - y, 2)
-    eq2 = sp.Eq(sp.sin(y) + 2*x, 1)
-    result = sp.solve([eq1, eq2], (x, y))
-    print(result)
+
+    # For the example:
+    x0 = np.array([e for e in root.values()])
+    result = iterative_newton(system_newton, x0, jacobi, eps)
+    print(f"Ответ: x = {result['x']:.5f}, y = {result['y']:.5f}, eps = {eps}")
+
+
+    # # проверка через fsvole модуля Scipy
+    # from scipy.optimize import fsolve
+
+    # sol = fsolve(system_newton, x0, fprime=jacobi, full_output=0)
+    # print('solution fsolve:', sol)
 
 
 main()

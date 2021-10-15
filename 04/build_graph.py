@@ -1,5 +1,5 @@
 import numpy as np
-from input import f_1, f_2, left_x_limiter, right_x_limiter
+from data_input import f_1, f_2, left_x_limiter, right_x_limiter
 
 """
 """
