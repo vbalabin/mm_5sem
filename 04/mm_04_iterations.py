@@ -14,7 +14,7 @@ def get_matrix_norm(matrix, x, y):
             res += func(x, y) ** 2
     return np.sqrt(res)
 
-
+# алгоритм итерации
 def iterate_roots(root, system, key):
     return system[key](root)
 

@@ -47,13 +47,3 @@ def jacobi(roots):
 def system_newton(roots):
     x, y = roots
     return [np.cos(x-1) + y - 1, 2*x + np.sin(y) - 1.6]
-
-# φ'(x, y), матрица Якоби
-# element_11 = lambda x, y: -0.5*np.cos(y)
-# element_12 = lambda x, y: 0
-# element_21 = lambda x, y: 0
-# element_22 = lambda x, y: np.sin(x-1)
-# phi_diff = [[element_11, element_12], 
-#             [element_21, element_22]]
-
-# -------------------------------
