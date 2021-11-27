@@ -14,9 +14,9 @@ OUTPUT_GRAPH_PATH = f'txt\\output_{strip_ext(os.path.basename(__file__))}.png'
 TO_FILE = True
  
 def rectangular(a, b, n, f_):
-    h = (b-a)/n
-    h2 = h/2.0
-    s = 0.0
+    h = (b - a) / n
+    h2 = h / 2
+    s = 0
     for j in range(n):
         x = a + j * h - h2
         s = s + f_(x)
@@ -36,7 +36,7 @@ def simpson(a, b, n, f_):
     h = (b - a) / n2
     s = f_(a) + f_(b)
     for j in range(0, n1):
-        z = 3.0 - math.pow((-1),j)
+        z = 3 - math.pow((-1), j)
         x = a + j * h 
         s = s + z * f_(x)
     return s * h / 3
